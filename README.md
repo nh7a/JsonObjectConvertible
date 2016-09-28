@@ -12,11 +12,11 @@ When we already have `JSONSerialization` in Foundation, why don't we simply use 
       ...
     }
 
-For more sample, please check out [JsonObjectConvertibleTests.swift](https://raw.githubusercontent.com/nh7a/JsonObjectConvertible/master/JsonObjectConvertibleTests/JsonObjectConvertibleTests.swift).
+For more sample, please check out [JsonObjectConvertibleTests.swift](https://raw.githubusercontent.com/nh7a/JsonObjectConvertible/master/Tests/JsonObjectConvertibleTests/JsonObjectConvertibleTests.swift).
 
 ## Installation
 
-Copy [JsonObjectConvertible.swift](https://raw.githubusercontent.com/nh7a/JsonObjectConvertible/master/JsonObjectConvertible/JsonObjectConvertible.swift) into your project.
+Copy [JsonObjectConvertible.swift](https://raw.githubusercontent.com/nh7a/JsonObjectConvertible/master/Sources/JsonObjectConvertible.swift) into your project.
 
 ## Author
 
