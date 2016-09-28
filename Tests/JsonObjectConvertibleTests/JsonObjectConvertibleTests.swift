@@ -1,26 +1,7 @@
-//
-//  JsonObjectConvertibleTests.swift
-//  JsonObjectConvertibleTests
-//
-//  Created by Naoki Hiroshima on 9/20/16.
-//  Copyright © 2016 Naoki Hiroshima. All rights reserved.
-//
-
 import XCTest
 @testable import JsonObjectConvertible
 
 class JsonObjectConvertibleTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testArray() {
         let arr = "[null, true, false, 0, 1, 0.0, 0.1, \"foo\", [1,2,3,4,5], {\"key\": \"value\"}]"
         let data = arr.data(using: .utf8)!
@@ -59,15 +40,32 @@ class JsonObjectConvertibleTests: XCTestCase {
         XCTAssertEqual(json["dict"] as! [String:String], ["key":"value"])
         XCTAssertEqual(json["dict"]["key"] as? String, "value")
     }
-    
+
     func testSample() {
-        let testBundle = Bundle(for: type(of: self))
-        guard let url = testBundle.url(forResource: "sample", withExtension: "json"), let data = try? Data(contentsOf: url) else {
-            fatalError()
+        guard let data = loadInputFile("sample.json").data(using: .utf8) else {
+            fatalError("sample.json isn't a file")
         }
         let json = try? JSONSerialization.jsonObject(with: data, options: [])
         
         XCTAssertEqual(json["data"][0]["from"]["name"] as? String, "Tom Brady")
         XCTAssertEqual(json["data"][1]["from"]["name"] as? String, "Peyton Manning")
+    }
+    
+    static var allTests : [(String, (JsonObjectConvertibleTests) -> () throws -> Void)] {
+        return [
+            ("testArray", testArray),
+            ("testDictionary", testDictionary),
+            ("testSample", testSample),
+        ]
+    }
+}
+
+private func loadInputFile(_ name: String) -> String {
+    let arr = #file.components(separatedBy: "/")
+    let path = (arr.prefix(upTo: arr.count-1) + [name]).joined(separator: "/")
+    do {
+        return try String(contentsOfFile: path)
+    } catch {
+        fatalError("File not found: \(name)")
     }
 }
